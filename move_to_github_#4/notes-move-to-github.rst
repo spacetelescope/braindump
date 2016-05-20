@@ -1,8 +1,8 @@
 Moving JWST code to github
-==========================
+--------------------------
 
 What to move from SVN to github
--------------------------------
++++++++++++++++++++++++++++++++
 
 jwst_lib:
     - stpipe
@@ -26,7 +26,7 @@ jwst_tools
     - spectools
 
 How to organize the code
-------------------------
+++++++++++++++++++++++++
 
 Installation structure
 ++++++++++++++++++++++
@@ -72,37 +72,35 @@ Github organization
 
 - Have all jwst code in one repo mimicking the installaiton structure in 2 above.
 
-    This was the preferred option among those present.
+This was the preferred option among those present. Same Note as above applies here.
 
-    Same Note as above applies here.
+Advantages:
 
-    Advantages:
+This has the advantage of having common Travis CI tests which run on every PR to test the
+integrity of the pipeline, i.e. it's easier to handle dependencies between steps by having
+tests that run the entire pipeline.
 
-       This has the advantage of having common Travis CI tests which run on every PR to test the
-       integrity of the pipeline, i.e. it's easier to handle dependencies between steps by having
-       tests that run the entire pipeline.
+This also allows the entire pipeline to have one version making it easier to debug user
+configuration and environments.
 
-       This also allows the entire pipeline to have one version making it easier to debug user
-       configuration and environments.
+Disadvantages:
 
-    Disadvantages:
-
-       Everyone has write permissions to the main repository. If we really agree on assigning a
-       primary and secondary mainteiner to each step (see below), they all have merge right to
-       the entire repo. In reality it's unlikely this to be a major problem and a bit of communication
-       will solve any issues.
+Everyone has write permissions to the main repository. If we really agree on assigning a
+primary and secondary mainteiner to each step (see below), they all have merge right to
+the entire repo. In reality it's unlikely this to be a major problem and a bit of communication
+will solve any issues.
 
 
 Have every step and jwst_lib subpackage in a separate repo.
 
-   This does not have the disadvantage listed in 2. above.
+This does not have the disadvantage listed in 2. above.
 
-   Every step will have its own version -is this good or bad?
-       (I vote for bad.)
+Every step will have its own version -is this good or bad?
+(I vote for bad.)
 
 
 SSBDEV build
-------------
+++++++++++++
 
 When we move to astroconda there will be no SSBDEV build as we know it now.
 Everyone will have to install anaconda locally and then install astroconda-dev.
@@ -110,7 +108,7 @@ astroconda-dev pulls code from the master branch of all repositories on github
 
 
 Workflow
---------
+++++++++
 
 Joe wrote a good "Starting with github" document (https://confluence.stsci.edu/display/SSB/Github+and+You
 
