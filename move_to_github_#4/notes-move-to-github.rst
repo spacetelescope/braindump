@@ -20,8 +20,7 @@ jwst_tools
     - fits_generator
     - csv_tools
     - timeconversion
-  unclear:
-    - nircam_mosaic ?
+    - nircam_mosaic 
   don't move:
     - spectools
 
