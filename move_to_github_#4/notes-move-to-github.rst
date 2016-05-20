@@ -14,14 +14,16 @@ jwst_lib:
 jwst_pipeline:
     - everything except bias_drift
 
-jwsttools:
+jwst_tools
+  move:
     - assocations
     - fits_generator
     - csv_tools
     - timeconversion
-
-    - nircam_mosaic?
-    - don't transfer spectools
+  unclear:
+    - nircam_mosaic ?
+  don't move:
+    - spectools
 
 How to organize the code
 ------------------------
@@ -31,38 +33,50 @@ Installation structure
 
 Whatever is decided, at the all JWST pipeline code should be installable by one command.
 
-    1. Keep it as it is
-       There was a general dislike of namespaces and the nested directory structure we have to
-       use currently.
+- Keep it as it is
 
-    2. Install all JWST code under one directory, e.g.
+  There was a general dislike of namespaces and the nested directory structure we have to
+  use currently.
 
-        jwst
-             stpipe
-             models
-             bias_drift
-             other steps
-             ...
-             tools packages
+- Install all JWST code under one directory, e.g.
 
-        Note: stpipe and models maybe used as standalone packages by other projects (WFIRST?)
-        Should we keep them in a common jwst/ directory or is it better to package them
-        as separate packages?
+  jwst
+      stpipe
 
-        How about the jwst_tools packages? Are they general data analysis tools or are they
-        JWST specific?
+      models
+
+      flat_field
+
+      ramp_fitting
+
+      ...
+
+      other steps
+
+      ...
+
+      tools packages
+
+Note: stpipe and models maybe used as standalone packages by other projects (WFIRST?)
+      Should we keep them in a common jwst/ directory or is it better to package them
+      as separate packages?
+
+      How about the jwst_tools packages? Are they general data analysis tools or are they
+      JWST specific?
 
 
 Github organization
 +++++++++++++++++++
 
-    1. Keep things as they are - 3 repos ,jwst_lib, jwst_pipeline, jwst_tools. This was not
-       a popular option.
+- Keep things as they are - 3 repos ,jwst_lib, jwst_pipeline, jwst_tools. This was not a popular option.
 
-    2. Have all jwst code in one repo mimicking the installaiton structure in 2 above.
-       Same Note as above applies here.
+- Have all jwst code in one repo mimicking the installaiton structure in 2 above.
 
-       Advantages:
+    This was the preferred option among those present.
+
+    Same Note as above applies here.
+
+    Advantages:
 
        This has the advantage of having common Travis CI tests which run on every PR to test the
        integrity of the pipeline, i.e. it's easier to handle dependencies between steps by having
@@ -71,7 +85,7 @@ Github organization
        This also allows the entire pipeline to have one version making it easier to debug user
        configuration and environments.
 
-       Disadvantages:
+    Disadvantages:
 
        Everyone has write permissions to the main repository. If we really agree on assigning a
        primary and secondary mainteiner to each step (see below), they all have merge right to
@@ -79,23 +93,21 @@ Github organization
        will solve any issues.
 
 
-    3. Have every step and jwst_lib subpackage in a separate repo.
+Have every step and jwst_lib subpackage in a separate repo.
 
-       This does not have the disadvantage listed in 2. above.
+   This does not have the disadvantage listed in 2. above.
 
-       Every step will have its own version -is this good or bad?
+   Every step will have its own version -is this good or bad?
        (I vote for bad.)
-
-
-# 2 was the preferred option among those present.
 
 
 SSBDEV build
 ------------
 
-  When we move to astroconda there will be no SSBDEV build as we know it now.
-  Everyone will have to install anaconda locally and then install astroconda-dev.
-  astroconda-dev pulls code from the master branch of all repositories on github
+When we move to astroconda there will be no SSBDEV build as we know it now.
+Everyone will have to install anaconda locally and then install astroconda-dev.
+astroconda-dev pulls code from the master branch of all repositories on github
+
 
 Workflow
 --------
